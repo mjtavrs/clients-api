@@ -14,7 +14,7 @@ public class CreateClient {
 
     public Client execute(Client clientToBeCreated) {
         this.clientRepository
-                .findByCPF(clientToBeCreated.getCPF())
+                .findByCpf(clientToBeCreated.getCpf())
                 .ifPresent(client -> {
                     throw new IllegalArgumentException("CPF already registered");
                 });
