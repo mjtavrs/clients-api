@@ -1,17 +1,21 @@
 package dev.marcostavares.clients_api.interfaces.controllers;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import dev.marcostavares.clients_api.application.useCases.CreateClient;
 import dev.marcostavares.clients_api.application.useCases.ListClients;
+import dev.marcostavares.clients_api.application.useCases.UpdateClient;
 import dev.marcostavares.clients_api.domain.model.Client;
 import dev.marcostavares.clients_api.interfaces.dtos.ClientResponse;
 import jakarta.validation.Valid;
@@ -26,6 +30,9 @@ public class ClientController {
     @Autowired
     private ListClients listClients;
 
+    @Autowired
+    private UpdateClient updateClient;
+
     @PostMapping
     public ResponseEntity<Object> createClient(@Valid @RequestBody Client client) {
         var result = this.createClient.execute(client);
@@ -36,5 +43,11 @@ public class ClientController {
     public ResponseEntity<List<ClientResponse>> getAllClients() {
         var clients = listClients.execute();
         return ResponseEntity.ok().body(clients);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<ClientResponse> updateClient(@PathVariable UUID id, @Valid @RequestBody Client client) {
+        ClientResponse clientToUpdate = updateClient.execute(id, client);
+        return ResponseEntity.ok(clientToUpdate);
     }
 }
