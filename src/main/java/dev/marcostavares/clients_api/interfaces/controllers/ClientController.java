@@ -57,9 +57,8 @@ public class ClientController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteClient(@PathVariable UUID id) {
-        deleteClient.execute(id);
-        return ResponseEntity.ok().build();
+    public ResponseEntity<String> deleteClient(@PathVariable UUID id) {
+        return deleteClient.execute(id);
     }
 
 }

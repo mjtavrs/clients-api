@@ -5,6 +5,7 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import dev.marcostavares.clients_api.domain.exceptions.ClientNotFoundException;
 import dev.marcostavares.clients_api.domain.model.Client;
 import dev.marcostavares.clients_api.domain.repository.ClientRepository;
 import dev.marcostavares.clients_api.interfaces.dtos.ClientResponse;
@@ -22,7 +23,7 @@ public class UpdateClient {
                     client.setEmail(clientToBeUpdated.getEmail());
                     client.setPhone(clientToBeUpdated.getPhone());
                     return ClientResponse.fromEntity(clientRepository.save(client));
-                }).orElseThrow();
+                }).orElseThrow(ClientNotFoundException::new);
     }
 
 }
