@@ -32,6 +32,11 @@ public class Client {
     @Setter
     private String name;
 
+    @NotBlank(message = "The client must have a CPF")
+    @Column(nullable = false, unique = true)
+    @Getter
+    private String CPF;
+
     @NotBlank(message = "The client must have an email address")
     @Email(message = "The client must have a valid email address")
     @Column(nullable = false)
