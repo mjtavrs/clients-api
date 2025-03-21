@@ -32,7 +32,6 @@ public class Client {
     @Setter
     private String name;
 
-    @NotBlank(message = "The client must have a CPF")
     @Column(nullable = false, unique = true)
     @Getter
     private String cpf;
