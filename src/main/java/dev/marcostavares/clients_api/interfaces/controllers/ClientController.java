@@ -5,6 +5,7 @@ import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import dev.marcostavares.clients_api.application.useCases.CreateClient;
+import dev.marcostavares.clients_api.application.useCases.DeleteClient;
 import dev.marcostavares.clients_api.application.useCases.ListClients;
 import dev.marcostavares.clients_api.application.useCases.UpdateClient;
 import dev.marcostavares.clients_api.domain.model.Client;
@@ -33,6 +35,9 @@ public class ClientController {
     @Autowired
     private UpdateClient updateClient;
 
+    @Autowired
+    private DeleteClient deleteClient;
+
     @PostMapping
     public ResponseEntity<Object> createClient(@Valid @RequestBody Client client) {
         var result = this.createClient.execute(client);
@@ -50,4 +55,11 @@ public class ClientController {
         ClientResponse clientToUpdate = updateClient.execute(id, client);
         return ResponseEntity.ok(clientToUpdate);
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteClient(@PathVariable UUID id) {
+        deleteClient.execute(id);
+        return ResponseEntity.ok().build();
+    }
+
 }
