@@ -11,8 +11,6 @@ import jakarta.persistence.criteria.Predicate;
 public class ClientSpecification {
 
     public static Specification<Client> withFilters(ClientFilterRequest filter) {
-        System.out
-                .println("Filtro recebido: " + filter.getName() + ", " + filter.getEmail() + ", " + filter.getPhone());
         return (root, query, cb) -> {
             List<Predicate> predicates = new ArrayList<>();
 

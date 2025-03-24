@@ -22,6 +22,7 @@ import dev.marcostavares.clients_api.application.useCases.UpdateClient;
 import dev.marcostavares.clients_api.domain.model.Client;
 import dev.marcostavares.clients_api.interfaces.dtos.ClientFilterRequest;
 import dev.marcostavares.clients_api.interfaces.dtos.ClientResponse;
+import dev.marcostavares.clients_api.interfaces.dtos.ClientUpdateRequest;
 import jakarta.validation.Valid;
 
 @RestController
@@ -53,8 +54,9 @@ public class ClientController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ClientResponse> updateClient(@PathVariable UUID id, @Valid @RequestBody Client client) {
-        ClientResponse clientToUpdate = updateClient.execute(id, client);
+    public ResponseEntity<ClientResponse> updateClient(@PathVariable UUID id,
+            @Valid @RequestBody ClientUpdateRequest request) {
+        ClientResponse clientToUpdate = updateClient.execute(id, request);
         return ResponseEntity.ok(clientToUpdate);
     }
 
