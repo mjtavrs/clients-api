@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import dev.marcostavares.clients_api.domain.repository.ClientRepository;
+import dev.marcostavares.clients_api.infrastructure.specification.ClientSpecification;
+import dev.marcostavares.clients_api.interfaces.dtos.ClientFilterRequest;
 import dev.marcostavares.clients_api.interfaces.dtos.ClientResponse;
 
 import dev.marcostavares.clients_api.domain.exceptions.NoClientsInDatabaseException;
@@ -17,8 +19,11 @@ public class ListClients {
     @Autowired
     private ClientRepository clientRepository;
 
-    public List<ClientResponse> execute() {
-        var clients = clientRepository.findAll()
+    public List<ClientResponse> execute(ClientFilterRequest filter) {
+        var spec = ClientSpecification.withFilters(filter);
+
+        var clients = clientRepository.findAll(
+                spec)
                 .stream()
                 .map(ClientResponse::fromEntity)
                 .collect(Collectors.toList());
