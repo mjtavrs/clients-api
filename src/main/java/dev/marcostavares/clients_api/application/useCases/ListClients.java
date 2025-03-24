@@ -18,16 +18,16 @@ public class ListClients {
     private ClientRepository clientRepository;
 
     public List<ClientResponse> execute() {
-        var courses = clientRepository.findAll()
+        var clients = clientRepository.findAll()
                 .stream()
                 .map(ClientResponse::fromEntity)
                 .collect(Collectors.toList());
 
-        if (courses.isEmpty()) {
+        if (clients.isEmpty()) {
             throw new NoClientsInDatabaseException();
         }
 
-        return courses;
+        return clients;
     }
 
 }
