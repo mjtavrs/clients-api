@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import dev.marcostavares.clients_api.domain.repository.ClientRepository;
 import dev.marcostavares.clients_api.interfaces.dtos.ClientResponse;
 
+import dev.marcostavares.clients_api.domain.exceptions.NoClientsInDatabaseException;
+
 @Service
 public class ListClients {
 
@@ -20,6 +22,10 @@ public class ListClients {
                 .stream()
                 .map(ClientResponse::fromEntity)
                 .collect(Collectors.toList());
+
+        if (courses.isEmpty()) {
+            throw new NoClientsInDatabaseException();
+        }
 
         return courses;
     }
