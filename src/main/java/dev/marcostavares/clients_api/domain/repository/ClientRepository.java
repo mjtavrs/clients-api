@@ -10,4 +10,6 @@ import dev.marcostavares.clients_api.domain.model.Client;
 
 public interface ClientRepository extends JpaRepository<Client, UUID>, JpaSpecificationExecutor<Client> {
     Optional<Client> findByCpf(String cpf);
+
+    Optional<Client> findByPhone(String phone);
 }

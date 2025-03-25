@@ -17,8 +17,8 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
     }
 
-    @ExceptionHandler(CpfAlreadyRegisteredException.class)
-    public ResponseEntity<String> handleCpfAlreadyRegistered(CpfAlreadyRegisteredException e) {
+    @ExceptionHandler(AlreadyRegisteredException.class)
+    public ResponseEntity<String> handleAlreadyRegistered(AlreadyRegisteredException e) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
     }
 }

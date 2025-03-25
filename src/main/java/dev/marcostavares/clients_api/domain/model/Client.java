@@ -44,7 +44,7 @@ public class Client {
     private String email;
 
     @NotBlank(message = "The client must have a phone number")
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     @Getter
     @Setter
     private String phone;
