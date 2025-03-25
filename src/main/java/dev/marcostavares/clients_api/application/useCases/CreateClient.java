@@ -3,6 +3,7 @@ package dev.marcostavares.clients_api.application.useCases;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import dev.marcostavares.clients_api.domain.exceptions.CpfAlreadyRegisteredException;
 import dev.marcostavares.clients_api.domain.model.Client;
 import dev.marcostavares.clients_api.domain.repository.ClientRepository;
 
@@ -16,7 +17,7 @@ public class CreateClient {
         this.clientRepository
                 .findByCpf(clientToBeCreated.getCpf())
                 .ifPresent(client -> {
-                    throw new IllegalArgumentException("CPF already registered");
+                    throw new CpfAlreadyRegisteredException();
                 });
 
         return this.clientRepository.save(clientToBeCreated);
